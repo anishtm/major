@@ -2,21 +2,28 @@
 
 ## Project Overview
 
-This project aims to estimate vehicle speeds using a combination of the YOLOv5 object detector and a Recurrent Neural Network (RNN) estimator. The process involves detecting cars in video frames, extracting bounding box information, and then using an RNN to predict vehicle speeds based on the changes in bounding box areas over time.
+This project was done as the major project for partial fulfillment of the Bachelor of Engineering in Electronics Communication & Information. It aims to estimate vehicle speeds using a combination of the YOLOv5 object detector and a Recurrent Neural Network (RNN) [LSTM} estimator. The process involves detecting cars in video frames, extracting bounding box information, and then using an RNN to predict vehicle speeds based on the changes in bounding box areas over time.
+![yolo example](https://github.com/anishtm/major/assets/96899635/bd0d7ca5-e8ca-4811-8847-a50ef579cf2d)
 
 ## Steps and Methodology
 
 ### Step 1: Acquire Dataset "VS13"
-- The dataset "VS13" was obtained, which contains videos of various vehicles.
+- The dataset "VS13" was obtained, which contains videos of 13 vehicles with 400 total videos. (Source: https://ieeexplore.ieee.org/document/9983773)
 
 ### Step 2: Detect Cars with YOLOv5
 - YOLOv5 from Ultralytics was used to detect cars in the VS13 dataset.
+- with script create_preliminary_dataset.py
 
 ### Step 3: Fine-Tune YOLOv5
 - YOLOv5 was fine-tuned with the images from VS13, using the annotations generated from the initial detection, to improve detection accuracy specific to this dataset.
+- with script create_new_dataset.py you can create a new dataset of images and labels from the preliminary dataset created.
+- with script train_yolov5.py you can create a new file structure suitable for training YOLOv5, and fine-tune yolov5
 
 ### Step 4: Detect Cars and Record Bounding Boxes
 - Cars were detected in each frame of the videos, and the bounding box coordinates were recorded for each detected car.
+- with script get_bbox.py, you can get new annotations of the cars detected in the frame which is later zipped to datasets.zip
+
+All the remaining processes are in a single ipynb file: Preprocessing_training_and_visualization.ipynb
 
 ### Step 5: Preprocess Data
 - The following preprocessing steps were performed on the data:
@@ -32,6 +39,7 @@ This project aims to estimate vehicle speeds using a combination of the YOLOv5 o
 - The model was tested, and its performance was evaluated based on the Root Mean Square Error (RMSE).
 
 ## Training Performance
+![rmse](https://github.com/anishtm/major/assets/96899635/4956e5f4-be59-4832-89a0-57e263a34201)
 
 During training, a significant reduction in RMSE was observed:
 - Initially, the RMSE was in the 60s.
@@ -65,9 +73,11 @@ The model's performance was further analyzed across different vehicle types with
 | VWPassat           | 5.5866 |
 | **Average**        | 5.7931 |
 
+Note for further output you can checkout output folder
+
 ## Conclusion
 
-The combination of YOLOv5 for object detection and an RNN for speed estimation has proven effective in this project. The model achieved a training RMSE of approximately 4 and a testing RMSE of 8.1010. The analysis of per vehicle performance shows that the model performs well across different vehicle types, with an average RMSE of 5.7931.
+The combination of YOLOv5 for object detection and an RNN for speed estimation has proven effective in this project. The model achieved a training RMSE of approximately 4 and a testing RMSE of 8.1010. The analysis of per-vehicle performance shows that the model performs well across different vehicle types, with an average RMSE of 5.7931.
 
 ## Acknowledgments
 
@@ -78,16 +88,13 @@ We would like to thank Ultralytics for providing YOLOv5 and the creators of the 
 For any questions or further information, please contact the project contributors.
 
 **Contributors:**
-- [Your Name]
-- [Collaborator's Name]
-- [Additional Contributor's Name]
+- Anish Thapa Magar
+- Subhdra Osthi
+- Neha Adhikari
 
 **Date:**
-- May 23, 2024
-
-**License:**
-- [Specify License Here]
+- March 7, 2024
 
 **References:**
 - [Ultralytics YOLOv5](https://github.com/ultralytics/yolov5)
-- [VS13 Dataset Source](Provide Source Link)
+- [VS13 Dataset Source](https://ieeexplore.ieee.org/document/9983773)
